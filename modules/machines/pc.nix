@@ -39,7 +39,9 @@
           sudo ${lib.getExe pkgs.nix} --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --root-mountpoint /mnt --flake '${self}#${configurationName}' --dry-run
         else
           sudo ${lib.getExe pkgs.nix} --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --root-mountpoint /mnt --flake '${self}#${configurationName}'
+          sudo mkdir -p /mnt/etc/ssh
           setup_host_keys '/mnt${config.installer.hostKeyLocation}' 600 600 0
+          sudo mkdir -p /mnt/etc/nixos
           sudo cp '${self}' /mnt/etc/nixos
           sudo nixos-install --root /mnt --no-root-password --show-trace --flake '${self}#${configurationName}'
         fi
