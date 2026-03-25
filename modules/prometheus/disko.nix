@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.nixosModules.prometheusConfiguration =
+  flake.modules.nixos.prometheus =
     { config, ... }:
     {
 
@@ -31,7 +31,7 @@
                   };
                 };
                 root = {
-                  end = "-1G";
+                  end = "-32G";
                   content = {
                     type = "filesystem";
                     format = "ext4";

@@ -2,6 +2,6 @@
 {
   flake.nixosConfigurations = config.builders.mkNixosConfig {
     hostName = "prometheus";
-    module = self.nixosModules.prometheusConfiguration;
+    module = self.modules.nixos.prometheus;
   };
 }

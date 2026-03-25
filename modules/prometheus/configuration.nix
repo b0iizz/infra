@@ -12,7 +12,7 @@
     };
   };
 
-  flake.nixosModules.prometheusConfiguration =
+  flake.modules.nixos.prometheus =
     {
       pkgs,
       lib,
