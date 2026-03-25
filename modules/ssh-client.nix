@@ -16,6 +16,9 @@
           age.secrets."${owner.username}-ssh-ed25519" = {
             rekeyFile = "${self}/secrets/manual/${owner.username}-ssh-ed25519.age";
             generator.script = "ssh-ed25519";
+            mode = "600";
+            owner = owner.username;
+            group = "wheel";
           };
         }
         (lib.mkIf (config.settings.enableOwnerUser) {
