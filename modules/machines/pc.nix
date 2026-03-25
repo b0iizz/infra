@@ -42,7 +42,7 @@
           sudo mkdir -p /mnt/etc/ssh
           setup_host_keys '/mnt${config.installer.hostKeyLocation}' 600 600 0
           sudo mkdir -p /mnt/etc/nixos
-          sudo cp '${self}' /mnt/etc/nixos
+          sudo cp -r '${self}' /mnt/etc/nixos
           sudo nixos-install --root /mnt --no-root-password --show-trace --flake '${self}#${configurationName}'
         fi
       '';
