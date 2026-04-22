@@ -91,6 +91,21 @@
       # Enable touchpad support (enabled default in most desktopManager).
       # services.xserver.libinput.enable = true;
 
+      # Install firefox.
+      programs.firefox.enable = true;
+
+      programs.localsend.enable = true;
+
+      programs.steam = {
+        enable = true;
+        remotePlay.openFirewall = true;
+        dedicatedServer.openFirewall = true;
+        localNetworkGameTransfers.openFirewall = true;
+        package = pkgs.steam.override (prev: {
+          extraArgs = (prev.extraArgs or "") + " -system-composer";
+        });
+      };
+
       # Allow unfree packages
       nixpkgs.config.allowUnfree = true;
 
