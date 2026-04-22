@@ -27,6 +27,7 @@
         programs = {
           prettier.enable = true;
           shfmt.enable = true;
+          taplo.enable = true;
           nixfmt = {
             enable = pkgs.lib.meta.availableOn pkgs.stdenv.buildPlatform pkgs.nixfmt.compiler;
             package = pkgs.nixfmt;
