@@ -22,6 +22,7 @@
       imports = with self.modules.nixos; [
         inputs.nixos-hardware.nixosModules.framework-13th-gen-intel
         host-pc
+        niri
       ];
 
       age.rekey.hostPubkey = lib.trim (builtins.readFile ./host-key.pub);
