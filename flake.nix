@@ -57,5 +57,9 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wallpapers = {
+      url = "github:b0iizz/wallpapers";
+      flake = false;
+    };
   };
 }

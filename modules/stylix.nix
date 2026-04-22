@@ -14,7 +14,7 @@ let
         enableReleaseChecks = true;
         base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
         polarity = "dark";
-        image = "${self}/wallpapers/22.png";
+        image = "${inputs.wallpapers}/22.png";
         imageScalingMode = "fill";
         icons = {
           enable = true;
@@ -30,8 +30,8 @@ let
             terminal = 12;
           };
           monospace = {
-            package = pkgs.dejavu_fonts;
-            name = "DejaVu Sans Mono";
+            package = pkgs.nerd-fonts.dejavu-sans-mono;
+            name = "DejaVuSansM Nerd Font Mono";
           };
           sansSerif = monospace;
           serif = sansSerif;
@@ -40,59 +40,91 @@ let
             name = "Noto Color Emoji";
           };
         };
+        opacity = {
+          applications = 0.9;
+          desktop = 0.9;
+          popups = 0.9;
+          terminal = 0.85;
+        };
         cursor = {
           package = pkgs.catppuccin-cursors.frappeRosewater;
-          name = "Catppuccin-Frappe-Rosewater-Cursors";
+          name = "catppuccin-frappe-rosewater-cursors";
           size = 16;
         };
       };
     };
 in
 {
-  flake-file.inputs.stylix = {
-    url = "github:nix-community/stylix";
-    inputs.nixpkgs.follows = "nixpkgs";
+  options.stylix = {
+    colors = lib.mkOption {
+      type = lib.types.raw;
+      default =
+        let
+          fakeSystem = lib.nixosSystem {
+            system = lib.head config.systems;
+            modules = [
+              inputs.stylix.nixosModules.stylix
+              polyModule
+            ];
+          };
+        in
+        fakeSystem.config.lib.stylix.colors;
+      readOnly = true;
+    };
+    module = lib.mkOption {
+      type = lib.types.functionTo lib.types.attrs;
+      default = polyModule;
+      readOnly = true;
+    };
   };
 
-  flake.modules = {
+  config = {
+    flake-file.inputs.stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-file.inputs.wallpapers = {
+      url = "github:b0iizz/wallpapers";
+      flake = false;
+    };
 
-    nixos.base = lib.mkIf (inputs ? stylix) (
-      { pkgs, ... }:
-      {
-        imports = [
-          inputs.stylix.nixosModules.stylix
-          (polyModule { inherit pkgs; })
-        ];
-        #stylix.homeManagerIntegration.autoImport = true;
-      }
-    );
+    flake.modules = {
 
-    homeManager.standalone = lib.mkIf (inputs ? stylix) (
-      { pkgs, ... }:
-      {
-        imports = [
-          inputs.stylix.homeModules.stylix
-          (polyModule { inherit pkgs; })
-        ];
-      }
-    );
-
-    nixvim.base = lib.mkIf (inputs ? stylix) (
-      let
-        fakeSystem = lib.nixosSystem {
-          system = lib.head config.systems;
-          modules = [
+      nixos.base =
+        { pkgs, ... }:
+        {
+          imports = [
             inputs.stylix.nixosModules.stylix
-            polyModule
+            (polyModule { inherit pkgs; })
+          ];
+          #stylix.homeManagerIntegration.autoImport = true;
+        };
+
+      homeManager.standalone =
+        { pkgs, ... }:
+        {
+          imports = [
+            inputs.stylix.homeModules.stylix
+            (polyModule { inherit pkgs; })
           ];
         };
-      in
-      {
-        imports = [
-          fakeSystem.config.stylix.targets.nixvim.exportedModule
-        ];
-      }
-    );
+
+      nixvim.base = {
+        imports =
+          let
+            fakeSystem = lib.nixosSystem {
+              system = lib.head config.systems;
+              modules = [
+                inputs.stylix.nixosModules.stylix
+                polyModule
+              ];
+            };
+          in
+          [
+            fakeSystem.config.stylix.targets.nixvim.exportedModule
+          ];
+      };
+    };
   };
 
 }
