@@ -25,9 +25,21 @@
           home-manager.users.${owner.username} = {
             programs.ssh = {
               enable = true;
-              matchBlocks."*".identityFile = lib.mkBefore [
-                config.age.secrets."${owner.username}-ssh-ed25519".path
-              ];
+              enableDefaultConfig = false;
+              matchBlocks."*" = {
+                identityFile = lib.mkBefore [
+                  config.age.secrets."${owner.username}-ssh-ed25519".path
+                ];
+                forwardAgent = false;
+                addKeysToAgent = "no";
+                compression = false;
+                serverAliveInterval = 0;
+                serverAliveCountMax = 3;
+                hashKnownHosts = false;
+                userKnownHostsFile = "~/.ssh/known_hosts";
+                controlMaster = "no";
+                controlPersist = "no";
+              };
             };
           };
         })
