@@ -65,5 +65,9 @@
       url = "github:b0iizz/wallpapers";
       flake = false;
     };
+    wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
