@@ -2,6 +2,7 @@
 {
   imports = [
     (inputs.flake-parts.flakeModules.modules or { })
+    (inputs.flake-parts.flakeModules.flakeModules or { })
     inputs.flake-file.flakeModules.default
   ];
 
