@@ -10,11 +10,15 @@
           type = lib.types.nullOr lib.types.singleLineStr;
           default = null;
         };
+        description = lib.mkOption {
+          type = lib.types.singleLineStr;
+        };
       };
     };
     readOnly = true;
     default = {
       username = "joni";
+      description = "Jonathan";
     };
   };
 }

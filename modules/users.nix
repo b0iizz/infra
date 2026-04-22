@@ -28,10 +28,12 @@
             isNormalUser = true;
             home = lib.mkDefault "/home/${owner.username}";
             createHome = true;
+            description = owner.description;
             extraGroups = [
               "wheel"
               "networkmanager"
               "audio"
+              "dialout"
             ];
             hashedPasswordFile = config.age.secrets."${owner.username}-password".path;
           };
