@@ -33,6 +33,7 @@
       ];
 
       hardware.facter.reportPath = ./facter.json;
+      hardware.fw-fanctrl.enable = true;
       services.hardware.bolt.enable = true;
 
       # Bootloader.
@@ -42,6 +43,9 @@
       # Enable networking
       networking.networkmanager = {
         enable = true;
+        plugins = with pkgs; [
+          networkmanager-openvpn
+        ];
       };
 
       # Set your time zone.
@@ -67,9 +71,20 @@
       # Configure console keymap
       console.keyMap = "de";
 
+      services.gvfs.enable = true;
+
       # Enable CUPS to print documents.
       services.printing = {
         enable = true;
+        drivers = with pkgs; [
+          epson-escpr2
+          epson-escpr
+        ];
+      };
+      services.avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true;
       };
 
       # Enable sound with pipewire.
@@ -115,8 +130,13 @@
         #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
         #  wget
         git
+        glib
+        libreoffice-fresh
+        self.packages.${stdenv.hostPlatform.system}.spotify-player-wrapped
+        eduvpn-client
       ];
 
+      programs.nix-ld.enable = true;
       services.power-profiles-daemon.enable = true;
       services.upower.enable = true;
       # Some programs need SUID wrappers, can be configured further or are
