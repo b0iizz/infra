@@ -1,4 +1,9 @@
-{ self, inputs, config, ... }:
+{
+  self,
+  inputs,
+  config,
+  ...
+}:
 {
   flake.nixosConfigurations = config.builders.mkNixosConfig {
     hostName = "prometheus";

@@ -1689,15 +1689,33 @@ in
             };
             yazi = {
               plugin.prepend_preloaders = [
-                { name = "/run/user/1000/gvfs/**/*"; run = "noop"; }
-                { name = "/run/media/${config.meta.owner.username}/**/*"; run = "noop"; }
+                {
+                  name = "/run/user/1000/gvfs/**/*";
+                  run = "noop";
+                }
+                {
+                  name = "/run/media/${config.meta.owner.username}/**/*";
+                  run = "noop";
+                }
               ];
 
               plugin.prepend_previewers = [
-                { name = "*/"; run = "folder"; }
-                { mime = "{text/*,application/x-subrip}"; run = "code"; }
-                { name = "/run/user/1000/gvfs/**/*"; run = "noop"; }
-                { name = "/run/media/${config.meta.owner.username}/**/*"; run = "noop"; }
+                {
+                  name = "*/";
+                  run = "folder";
+                }
+                {
+                  mime = "{text/*,application/x-subrip}";
+                  run = "code";
+                }
+                {
+                  name = "/run/user/1000/gvfs/**/*";
+                  run = "noop";
+                }
+                {
+                  name = "/run/media/${config.meta.owner.username}/**/*";
+                  run = "noop";
+                }
               ];
             };
             theme =
