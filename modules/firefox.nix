@@ -1,11 +1,10 @@
 {
+  slib,
   self,
-  infuse-lib,
   config,
   ...
 }:
 let
-  inherit (infuse-lib) infuse;
   inherit (config.stylix) colors;
 in
 {
@@ -280,7 +279,7 @@ in
     in
     {
       packages.librewolf-wrapped = pkgs.wrapFirefox pkgs.librewolf-unwrapped (
-        infuse wrapperConfig {
+        slib.infuse wrapperConfig {
           nixExtensions.__default = [ ];
           nixExtensions.__append = [
             (pkgs.fetchFirefoxAddon {

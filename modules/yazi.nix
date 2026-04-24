@@ -3,12 +3,9 @@
   inputs,
   config,
   lib,
-  infuse-lib,
+  slib,
   ...
 }:
-let
-  inherit (infuse-lib) infuse;
-in
 {
 
   flake.modules.nixos.yazi =
@@ -37,7 +34,7 @@ in
   perSystem =
     { pkgs, lib, ... }:
     {
-      packages.yazi-wrapped = infuse pkgs.yazi {
+      packages.yazi-wrapped = slib.infuse pkgs.yazi {
         __input = {
           initLua.__assign = pkgs.writeTextFile {
             name = "yazi-initlua";

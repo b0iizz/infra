@@ -1,12 +1,9 @@
 {
+  slib,
   inputs,
-  infuse-lib,
   config,
   ...
 }:
-let
-  inherit (infuse-lib) infuse;
-in
 {
   perSystem =
     { pkgs, ... }:
@@ -16,7 +13,7 @@ in
     {
       packages.noctalia-shell-wrapped = inputs.wrapper-modules.wrappers.noctalia-shell.wrap {
         inherit pkgs;
-        settings = infuse (builtins.fromJSON (builtins.readFile ./settings.json)).settings {
+        settings = slib.infuse (builtins.fromJSON (builtins.readFile ./settings.json)).settings {
 
           bar.backgroundOpacity.__assign = stylix.opacity.desktop;
           bar.capsuleOpacity.__assign = stylix.opacity.desktop;

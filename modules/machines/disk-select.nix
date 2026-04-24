@@ -1,4 +1,4 @@
-{ lib, self, ... }:
+{ lib, self, slib, ... }:
 {
   flake.modules.nixos.host-pc =
     { config, ... }:
@@ -70,7 +70,7 @@
             let
               inherit (config.hardware.facter) report;
 
-              satisfy = import "${self}/lib/gale-shapley.nix" { inherit lib; };
+              satisfy = slib.gale-shapley;
 
               disks = builtins.filter (
                 disk:
