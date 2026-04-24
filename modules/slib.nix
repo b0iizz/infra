@@ -5,7 +5,6 @@
   ...
 }:
 {
-
   options.infuse.extra-sugars = lib.mkOption {
     type = lib.types.listOf (
       lib.types.submodule {
@@ -22,13 +21,14 @@
       flake = false;
     };
 
-    _module.args.infuse-lib =
+    _module.args.slib =
       let
+        slib = import ../lib { inherit lib; };
         infuse = import inputs.infuse {
           inherit lib;
           sugars = infuse.v1.default-sugars ++ config.infuse.extra-sugars;
         };
       in
-      infuse.v1;
+      slib // infuse.v1;
   };
 }
