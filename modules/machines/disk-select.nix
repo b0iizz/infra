@@ -70,7 +70,7 @@
             let
               inherit (config.hardware.facter) report;
 
-              satisfy = import "${self}/files/gale-shapley-unequal.nix" { inherit lib; };
+              satisfy = import "${self}/lib/gale-shapley.nix" { inherit lib; };
 
               disks = builtins.filter (
                 disk:

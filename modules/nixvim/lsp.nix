@@ -86,8 +86,8 @@
                   # Yoinked from https://github.com/MattSturgeon/nix-config/commit/b8aa42d6c01465949ef5cd9d4dc086d4eaa36793
                   # The wrapper curries `_nixd-expr.nix` with the `self` and `system` args
                   wrapper = builtins.toFile "expr.nix" ''
-                             import ${"${self}" + "/files/_nixd-expr.nix"} {
-                               self = ${builtins.toJSON self};
+                             import ${"${self}" + "/lib/_nixd-expr.nix"} {
+                               self = "${self}";
                                system = "${pkgs.stdenv.hostPlatform.system}";
                              }
                     	 '';
