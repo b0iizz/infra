@@ -138,8 +138,21 @@
         glib
         libreoffice-fresh
         self.packages.${stdenv.hostPlatform.system}.spotify-player-wrapped
+        self.packages.${stdenv.hostPlatform.system}.alacritty-wrapped
+        orca-slicer
         eduvpn-client
+        texlive.combined.scheme-full
+        evince
       ];
+
+      home-manager.users.${config.meta.owner.username} = {
+        xdg.mimeApps = {
+          enable = true;
+          defaultApplications = {
+            "application/pdf" = "org.gnome.Evince.desktop";
+          };
+        };
+      };
 
       programs.nix-ld.enable = true;
       services.power-profiles-daemon.enable = true;
@@ -161,7 +174,7 @@
       # networking.firewall.allowedTCPPorts = [ ... ];
       # networking.firewall.allowedUDPPorts = [ ... ];
       # Or disable the firewall altogether.
-      # networking.firewall.enable = false;
+      networking.firewall.enable = false;
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
