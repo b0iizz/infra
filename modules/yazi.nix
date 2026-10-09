@@ -1687,18 +1687,18 @@
             yazi = {
               plugin.prepend_preloaders = [
                 {
-                  name = "/run/user/1000/gvfs/**/*";
+                  url = "/run/user/1000/gvfs/**/*";
                   run = "noop";
                 }
                 {
-                  name = "/run/media/${config.meta.owner.username}/**/*";
+                  url = "/run/media/${config.meta.owner.username}/**/*";
                   run = "noop";
                 }
               ];
 
               plugin.prepend_previewers = [
                 {
-                  name = "*/";
+                  url = "*/";
                   run = "folder";
                 }
                 {
@@ -1706,11 +1706,11 @@
                   run = "code";
                 }
                 {
-                  name = "/run/user/1000/gvfs/**/*";
+                  url = "/run/user/1000/gvfs/**/*";
                   run = "noop";
                 }
                 {
-                  name = "/run/media/${config.meta.owner.username}/**/*";
+                  url = "/run/media/${config.meta.owner.username}/**/*";
                   run = "noop";
                 }
               ];

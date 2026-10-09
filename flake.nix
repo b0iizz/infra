@@ -50,6 +50,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-ff.url = "github:NixOS/nixpkgs/e2587caef70cea85dd97d7daab492899902dbf5d";
     nixpkgs-lib.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
     stylix = {

@@ -1,4 +1,9 @@
-{ lib, self, slib, ... }:
+{
+  lib,
+  self,
+  slib,
+  ...
+}:
 {
   flake.modules.nixos.host-pc =
     { config, ... }:

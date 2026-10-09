@@ -52,6 +52,7 @@
           networkmanager-openvpn
         ];
       };
+      networking.wireless.interfaces = [ "wlp170s0" ];
 
       # Set your time zone.
       time.timeZone = "Europe/Berlin";
@@ -91,6 +92,11 @@
         nssmdns4 = true;
         openFirewall = true;
       };
+      programs.wireshark = {
+        enable = true;
+        dumpcap.enable = true;
+        usbmon.enable = true;
+      };
 
       # Enable sound with pipewire.
       services.pulseaudio.enable = false;
@@ -101,7 +107,7 @@
         alsa.support32Bit = true;
         pulse.enable = true;
         # If you want to use JACK applications, uncomment this
-        #jack.enable = true;
+        jack.enable = true;
 
         # use the example session manager (no others are packaged yet so this is enabled by default,
         # no need to redefine it in your config for now)
@@ -133,16 +139,22 @@
       # $ nix search wget
       environment.systemPackages = with pkgs; [
         #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-        #  wget
+        gnome-network-displays
+        wget
         git
         glib
-        libreoffice-fresh
+        libreoffice-stable
         self.packages.${stdenv.hostPlatform.system}.spotify-player-wrapped
         self.packages.${stdenv.hostPlatform.system}.alacritty-wrapped
         orca-slicer
         eduvpn-client
-        texlive.combined.scheme-full
         evince
+        ocrmypdf
+        sane-frontends
+        sane-backends
+        epkowa
+        simple-scan
+        busybox
       ];
 
       home-manager.users.${config.meta.owner.username} = {

@@ -25,6 +25,7 @@
 
       environment.sessionVariables = {
         NIXOS_OZONE_WL = "1";
+        _JAVA_AWT_WM_NONREPARENTING = "1";
       };
 
     };
@@ -43,6 +44,13 @@
     {
       packages.niri-wrapped = inputs.wrapper-modules.wrappers.niri.wrap {
         inherit pkgs;
+        package = pkgs.niri.overrideAttrs (prev: final: {
+          src = pkgs.fetchgit {
+            url = "https://github.com/niri-wm/niri.git";
+            rev = "2ab59b90d55afbbe362a63e2a061afe4b524d8c4";
+            hash = "sha256-0omNMd5r60XijvZq3jw7X/WRCUTB4FEoGRGv0sZOaFY=";
+          };
+        });
         settings = {
           spawn-at-startup = [
             [
@@ -68,7 +76,11 @@
 
           input = {
             keyboard = {
-              xkb.layout = "de";
+              xkb = {
+                layout = "de,us";
+                variant = ",dvorak";
+                options = "grp:caps_toggle";
+              };
               numlock = _: { };
             };
             touchpad = {
@@ -104,7 +116,7 @@
               };
             };
             "Mod+D" = _: {
-              props.hotkey-overlay-title = "Open Browser (librewolf)";
+              props.hotkey-overlay-title = "Open Browser";
               content = {
                 spawn = lib.getExe self'.packages.librewolf-wrapped;
               };

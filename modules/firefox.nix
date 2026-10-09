@@ -8,13 +8,15 @@ let
   inherit (config.stylix) colors;
 in
 {
+  flake-file.inputs.nixpkgs-ff.url = "github:NixOS/nixpkgs/e2587caef70cea85dd97d7daab492899902dbf5d";
   perSystem =
     {
       lib,
-      pkgs,
+      inputs',
       ...
     }:
     let
+      pkgs = inputs'.nixpkgs-ff.legacyPackages or inputs'.nixpkgs.legacyPackages;
       inherit (config.stylix.module { inherit pkgs; }) stylix;
       wrapperConfig = {
 
@@ -139,6 +141,7 @@ in
               "DuckDuckGo"
               "Bing"
               "Perplexity"
+              "Ecosia"
               "Wikipedia (en)"
             ];
             PreventInstalls = true;

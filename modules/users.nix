@@ -22,6 +22,11 @@
             isSystemUser = true;
             hashedPasswordFile = config.age.secrets.root-password.path;
           };
+          services.udev.extraRules = ''
+            SUBSYSTEM=="usb", MODE="0660", GROUP="dialout"
+            SUBSYSTEM=="tty", MODE="0660", GROUP="dialout"
+            SUBSYSTEM=="hidraw", MODE="0660", GROUP="dialout"
+          '';
         }
         (lib.mkIf (config.settings.enableOwnerUser) {
           users.users.${owner.username} = {
@@ -34,6 +39,7 @@
               "networkmanager"
               "audio"
               "dialout"
+              "wireshark"
             ];
             hashedPasswordFile = config.age.secrets."${owner.username}-password".path;
           };

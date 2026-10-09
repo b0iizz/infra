@@ -53,9 +53,11 @@
           "L" = "ChooseSelected";
 
           "left" = "FocusPreviousWindow";
+          "C-left" = "FocusPreviousWindow";
           "down" = "SelectNextOrScrollDown";
           "up" = "SelectPreviousOrScrollUp";
           "right" = "FocusNextWindow";
+          "C-right" = "FocusNextWindow";
           "page_down" = "PageSelectNextOrScrollDown";
           "page_up" = "PageSelectPreviousOrScrollUp";
           "C-page_down" = "SelectLastOrScrollToBottom";
